@@ -187,81 +187,117 @@ body{margin:0;height:100%;overflow:hidden;background:#8fd0ff;color:var(--ink);
 /* ================= 콘텐츠 ================= */
 const ROOM_D = 16, HALF_W = 8;
 const ROOMS = [
-  { title:'나주역 대합실', when:'1929년 10월 30일',
-    goal:'반짝이는 단서를 살펴보고, 문 옆 번호 자물쇠를 풀어 보세요.',
-    floor:0xd8c39a, wall:0xb8afa2,
-    clues:[
-      {id:'c0a', title:'통학 열차 승차권', kind:'ticket', x:3.6, z:-11,
-       text:'광주와 나주를 오가던 통학 열차의 승차권이에요. 날짜 칸에 ‘10월 30일’이 선명하게 찍혀 있어요.'},
-      {id:'c0b', title:'찢어진 신문 조각', kind:'paper', x:-3, z:-3.4,
-       text:'나주역에 도착한 통학 열차에서 일본인 학생들이 조선인 여학생 박기옥 등의 댕기머리를 잡아당기며 괴롭혔어요. 이를 본 사촌 동생 박준채가 맞서면서 두 나라 학생들 사이에 싸움이 벌어졌어요.'},
-      {id:'c0c', title:'역무원의 메모', kind:'board', x:5.6, z:-2.6,
-       text:'일본 경찰은 일본인 학생 편만 들고 조선인 학생들을 일방적으로 몰아세웠어요. 이 불공정한 처리에 광주의 학생들은 크게 분노했어요. 메모 아래 작은 글씨: “자물쇠 번호는 사건이 일어난 달과 날짜.”'}
-    ],
-    lock:{ kind:'steps', steps:[
-      {type:'code', q:'사건이 일어난 날짜를 4자리로 입력하세요. (월 두 자리 + 일 두 자리)', answer:'1030',
-       hint:'승차권에 찍힌 날짜는 10월 30일이에요. 10과 30을 이어 붙여 보세요.'}
-    ]}
-  },
-  { title:'광주 시내 거리', when:'1929년 11월 3일',
-    goal:'학생들이 거리로 나선 날이에요. 단서를 읽고 자물쇠의 두 문제를 풀어 보세요.',
-    floor:0xc6ccd4, wall:0xc25a43,
-    clues:[
-      {id:'c1a', title:'1929년 달력', kind:'board', x:-5.4, z:-28.5,
-       text:'1929년 11월 3일. 일제는 이날을 메이지 천황의 생일인 ‘명치절’로 기념했어요. 같은 날은 음력으로 우리 민족의 개천절이기도 했어요. 바로 이날, 광주의 학생들이 거리로 쏟아져 나왔어요.'},
-      {id:'c1b', title:'비밀 모임의 쪽지', kind:'paper', x:4.8, z:-19.8,
-       text:'성진회는 광주고등보통학교와 광주농업학교 학생들이 만든 비밀 모임이에요. 함께 책을 읽으며 민족의 앞날을 고민했지요. 11월 3일은 성진회가 만들어진 지 3년이 되는 날이었어요.'},
-      {id:'c1c', title:'학생들의 격문', kind:'flag', x:-5.6, z:-21,
-       text:'학생들은 식민지 노예 교육을 없애고 조선인을 위한 교육을 할 것, 그리고 자유롭게 말하고 모이고 글을 쓸 권리를 보장할 것을 요구했어요.'}
-    ],
-    lock:{ kind:'steps', steps:[
-      {type:'choice', q:'학생들이 시위에 나선 1929년 11월 3일은 일제에게 어떤 날이었을까요?',
-       options:['조선 총독부가 세워진 날','메이지 천황의 생일인 명치절','일본의 설날','일본 학교의 개학일'], answer:1,
-       hint:'벽에 걸린 달력을 다시 읽어 보세요. ‘천황의 생일’이 열쇠예요.'},
-      {type:'choice', q:'학생들이 격문에서 요구한 것으로 알맞은 것은 무엇일까요?',
-       options:['일본어 수업 시간 늘리기','시험 없애기','식민지 노예 교육 철폐와 조선인을 위한 교육','교복 바꾸기'], answer:2,
-       hint:'깃발에 적힌 격문은 ‘교육’과 ‘자유’를 이야기하고 있어요.'}
-    ]}
-  },
-  { title:'전국으로 번진 함성', when:'1929년 11월 ~ 1930년 봄',
-    goal:'네 개의 기둥을 사건이 일어난 순서대로 누르면 문이 열려요.',
-    floor:0xb9d6bd, wall:0x8b9cb2,
-    clues:[
-      {id:'c2a', title:'시위가 퍼진 지도', kind:'board', x:-6.6, z:-40,
-       text:'광주에서 시작된 시위는 목포와 나주 등 가까운 지역으로 번졌고, 12월에는 서울의 여러 학교 학생들도 거리로 나섰어요. 그 뒤 전국으로 퍼져 약 다섯 달 동안 이어졌어요.'},
-      {id:'c2b', title:'신간회의 문서', kind:'paper', x:6.6, z:-40,
-       text:'광주의 소식을 들은 민족 운동 단체 신간회는 진상 조사단을 보내 사건을 알아보고, 학생들의 운동을 더 큰 항일 운동으로 키우려 했어요.'},
-      {id:'c2c', title:'역사 기록', kind:'ticket', x:0, z:-40,
-       text:'이 운동은 3·1 운동 이후 가장 큰 규모의 민족 운동으로 평가받아요. 기록 끝에 이렇게 적혀 있어요: “나주역에서 시작된 불씨가 광주를 거쳐 전국으로 번졌다.”'}
-    ],
-    lock:{ kind:'order',
-      items:['나주역 충돌','광주 학생 시위','신간회 진상 조사','전국으로 확산'],
-      spots:[{x:-4,z:-36,i:3},{x:4,z:-36,i:0},{x:-4,z:-44.5,i:2},{x:4,z:-44.5,i:1}],
-      hint:'나주역 충돌(10월 30일) → 광주 학생 시위(11월 3일) → 신간회 진상 조사 → 전국으로 확산(12월 이후) 순서예요.'
-    }
-  },
-  { title:'학생독립운동 기념관', when:'그리고 오늘',
-    goal:'마지막 자물쇠예요. 기념일의 역사를 읽고 탈출하세요!',
-    floor:0xe6dfcf, wall:0xd3cbbb,
-    clues:[
-      {id:'c3a', title:'첫 번째 기념판', kind:'board', x:-6.6, z:-51.5,
-       text:'1953년, 나라에서는 11월 3일을 ‘학생의 날’로 정해 학생들의 용기를 기리기 시작했어요.'},
-      {id:'c3b', title:'두 번째 기념판', kind:'board', x:6.6, z:-51.5,
-       text:'학생의 날은 1973년에 기념일에서 빠졌다가, 1984년에 다시 되살아났어요.'},
-      {id:'c3c', title:'세 번째 기념판', kind:'board', x:-6.6, z:-60.5,
-       text:'2006년, 학생의 날은 ‘학생독립운동기념일’로 이름이 바뀌고 정부 기념일이 되었어요. 불의에 맞섰던 학생들의 정신을 오늘의 학생들이 이어 가자는 뜻이 담겨 있어요.'}
-    ],
-    lock:{ kind:'steps', steps:[
-      {type:'code', q:'‘학생의 날’이 ‘학생독립운동기념일’로 이름이 바뀐 해를 입력하세요.', answer:'2006',
-       hint:'세 번째 기념판을 읽어 보세요. 2000년대예요.'},
-      {type:'choice', q:'학생독립운동기념일이 오늘의 우리에게 주는 의미로 가장 알맞은 것은 무엇일까요?',
-       options:['오래전 일이니 몰라도 된다','불의에 맞서 스스로 목소리를 낸 학생들의 용기를 기억하고 이어 간다','학생은 어른이 시키는 일만 하면 된다','싸움에서 이기는 것이 가장 중요하다'], answer:1,
-       hint:'1929년의 학생들은 스스로 생각하고, 옳지 않은 일에 함께 목소리를 냈어요.'}
-    ]}
-  },
-  { title:'탈출구', when:'자유를 향해', goal:'빛나는 문으로 들어가면 탈출 성공!', floor:0xfde9a6, wall:0xf2efe8, clues:[], lock:null }
+  { title:'나주역 대합실', when:'1929년 10월 30일', goal:'반짝이는 단서를 살펴보고, 문 옆 번호 자물쇠를 풀어 보세요.', floor:0xd8c39a, wall:0xb8afa2 },
+  { title:'광주 시내 거리', when:'1929년 11월 3일', goal:'학생들이 거리로 나선 날이에요. 단서를 읽고 자물쇠의 두 문제를 풀어 보세요.', floor:0xc6ccd4, wall:0xc25a43 },
+  { title:'함성의 연표', when:'1929년부터 오늘까지', goal:'연표 조각을 읽고, 네 기둥을 사건이 일어난 순서대로 누르세요.', floor:0xb9d6bd, wall:0x8b9cb2 },
+  { title:'학생독립운동 기념관', when:'그리고 오늘', goal:'마지막 자물쇠예요. 기념판을 읽고 탈출하세요!', floor:0xe6dfcf, wall:0xd3cbbb },
+  { title:'탈출구', when:'자유를 향해', goal:'빛나는 문으로 들어가면 탈출 성공!', floor:0xfde9a6, wall:0xf2efe8 }
 ];
-const TOTAL_CLUES = ROOMS.reduce((n,r)=>n+r.clues.length,0);
+const LOCK_KIND = ['steps','steps','order','steps'];
+const TOTAL_CLUES = 12;
+/* 단서가 놓일 수 있는 자리 (방마다 4곳 중 3곳이 매번 무작위로 쓰여요) */
+const SPOTS = [
+  [{x:-3,z:-3.4,kind:'paper'},{x:3.6,z:-11,kind:'ticket'},{x:5.6,z:-2.6,kind:'board'},{x:-3.2,z:-12.5,kind:'ticket'}],
+  [{x:-6.6,z:-28.5,kind:'board'},{x:4.8,z:-19.8,kind:'paper'},{x:-5.6,z:-21,kind:'flag'},{x:6.6,z:-23.5,kind:'board'}],
+  [{x:-6.6,z:-40,kind:'board'},{x:6.6,z:-40,kind:'paper'},{x:0,z:-40,kind:'ticket'},{x:-1.5,z:-46.3,kind:'ticket'}],
+  [{x:-6.6,z:-51.5,kind:'board'},{x:6.6,z:-51.5,kind:'board'},{x:-6.6,z:-60.5,kind:'board'},{x:6.6,z:-57.5,kind:'board'}]
+];
+/* 단서·문제 은행 */
+const FACTS = [
+  [
+    {id:'r0-ticket', title:'통학 열차 승차권', text:'광주와 나주를 오가던 통학 열차의 승차권이에요. 날짜 칸에 ‘10월 30일’이 선명하게 찍혀 있어요.',
+     q:{type:'code', q:'나주역 사건이 일어난 날짜를 4자리로 입력하세요. (월 두 자리 + 일 두 자리)', answer:'1030', hint:'승차권에 찍힌 날짜는 10월 30일이에요. 10과 30을 이어 붙여 보세요.'}},
+    {id:'r0-timetable', title:'낡은 열차 시간표', text:'역 벽에 붙어 있던 열차 시간표예요. 맨 위에 ‘1929년 가을 통학 열차’라고 적혀 있어요. 이 해 가을, 나주역에서 역사를 바꾼 사건이 일어났어요.',
+     q:{type:'code', q:'나주역 사건과 광주 학생 독립운동이 일어난 해를 4자리로 입력하세요.', answer:'1929', hint:'열차 시간표 맨 위에 적힌 해를 보세요.'}},
+    {id:'r0-news', title:'찢어진 신문 조각', text:'나주역에 도착한 통학 열차에서 일본인 학생들이 조선인 여학생 박기옥 등의 댕기머리를 잡아당기며 괴롭혔어요. 이를 본 사촌 동생 박준채가 맞서면서 두 나라 학생들 사이에 싸움이 벌어졌어요.'},
+    {id:'r0-memo', title:'역무원의 메모', text:'일본 경찰은 일본인 학생 편만 들고 조선인 학생들을 일방적으로 몰아세웠어요. 이 불공정한 처리에 광주의 학생들은 크게 분노했어요.'},
+    {id:'r0-diary', title:'통학생의 일기', text:'광주와 나주 사이를 기차로 통학하던 조선인 학생과 일본인 학생 사이에는 평소에도 차별과 다툼이 쌓여 있었어요. 나주역 사건은 그 불만이 터져 나온 계기였어요.'}
+  ],
+  [
+    {id:'r1-cal', title:'1929년 달력', text:'1929년 11월 3일. 일제는 이날을 메이지 천황의 생일인 ‘명치절’로 기념했어요. 같은 날은 음력으로 우리 민족의 개천절이기도 했어요. 바로 이날, 광주의 학생들이 거리로 쏟아져 나왔어요.',
+     q:{type:'choice', q:'학생들이 시위에 나선 1929년 11월 3일은 일제에게 어떤 날이었을까요?', options:['메이지 천황의 생일인 명치절','조선 총독부가 세워진 날','일본의 설날','일본 학교의 개학일'], answer:0, hint:'벽에 걸린 달력을 다시 읽어 보세요. ‘천황의 생일’이 열쇠예요.'}},
+    {id:'r1-note', title:'비밀 모임의 쪽지', text:'성진회는 광주고등보통학교와 광주농업학교 학생들이 만든 비밀 모임이에요. 함께 책을 읽으며 민족의 앞날을 고민했지요. 11월 3일은 성진회가 만들어진 지 3년이 되는 날이었어요.',
+     q:{type:'choice', q:'광주의 학생들이 함께 책을 읽으며 민족의 앞날을 고민한 비밀 모임의 이름은?', options:['성진회','독립협회','신민회','대한 자강회'], answer:0, hint:'쪽지에 적힌 모임 이름은 세 글자예요.'}},
+    {id:'r1-flag', title:'학생들의 격문', text:'학생들은 식민지 노예 교육을 없애고 조선인을 위한 교육을 할 것, 그리고 자유롭게 말하고 모이고 글을 쓸 권리를 보장할 것을 요구했어요.',
+     q:{type:'choice', q:'학생들이 격문에서 요구한 것으로 알맞은 것은 무엇일까요?', options:['식민지 노예 교육 철폐와 조선인을 위한 교육','일본어 수업 시간 늘리기','시험 없애기','교복 바꾸기'], answer:0, hint:'격문은 ‘교육’과 ‘자유’를 이야기하고 있어요.'}},
+    {id:'r1-close', title:'학교 게시판 공고', text:'시위가 점점 거세지자 일제는 광주 시내의 모든 중등학교에 휴교령을 내리고, 시위에 참여한 학생들을 붙잡아 가두었어요.',
+     q:{type:'choice', q:'시위가 거세지자 일제가 광주의 학교에 내린 조치는 무엇일까요?', options:['휴교령','방학 연장','운동회 개최','급식 중단'], answer:0, hint:'게시판 공고에는 ‘학교 문을 닫으라’는 명령이 적혀 있어요.'}},
+    {id:'r1-second', title:'두 번째 격문', text:'학생들은 굴하지 않았어요. 11월 12일, 광주 시내에서 더 큰 규모의 두 번째 시위가 벌어졌어요.',
+     q:{type:'choice', q:'광주에서 더 큰 규모의 두 번째 시위가 벌어진 날은 언제일까요?', options:['11월 12일','3월 1일','8월 15일','10월 9일'], answer:0, hint:'두 번째 격문에 적힌 날짜를 확인해 보세요.'}}
+  ],
+  [
+    {id:'r2-big', title:'역사 기록', text:'광주 학생 독립운동은 3·1 운동 이후 가장 큰 규모의 민족 운동으로 평가받아요.'},
+    {id:'r2-singan', title:'신간회의 문서', text:'광주의 소식을 들은 민족 운동 단체 신간회는 진상 조사단을 보내 사건을 알아보고, 학생들의 운동을 더 큰 항일 운동으로 키우려 했어요.'},
+    {id:'r2-map', title:'시위가 퍼진 지도', text:'광주에서 시작된 시위는 목포와 나주 등 가까운 지역을 거쳐 전국으로 퍼졌고, 약 다섯 달 동안 이어졌어요.'}
+  ],
+  [
+    {id:'r3-1953', title:'기념판: 학생의 날', text:'1953년, 나라에서는 11월 3일을 ‘학생의 날’로 정해 학생들의 용기를 기리기 시작했어요.',
+     q:{type:'code', q:'11월 3일이 처음 ‘학생의 날’로 정해진 해를 입력하세요.', answer:'1953', hint:'‘학생의 날’ 기념판을 보세요. 1950년대예요.'}},
+    {id:'r3-1984', title:'기념판: 다시 찾은 날', text:'학생의 날은 1973년에 기념일에서 빠졌다가, 1984년에 다시 되살아났어요.',
+     q:{type:'code', q:'기념일에서 빠졌던 학생의 날이 다시 되살아난 해를 입력하세요.', answer:'1984', hint:'‘다시 찾은 날’ 기념판을 보세요. 1980년대예요.'}},
+    {id:'r3-2006', title:'기념판: 새 이름', text:'2006년, 학생의 날은 ‘학생독립운동기념일’로 이름이 바뀌고 정부 기념일이 되었어요. 불의에 맞섰던 학생들의 정신을 오늘의 학생들이 이어 가자는 뜻이 담겨 있어요.',
+     q:{type:'code', q:'‘학생의 날’이 ‘학생독립운동기념일’로 이름이 바뀐 해를 입력하세요.', answer:'2006', hint:'‘새 이름’ 기념판을 보세요. 2000년대예요.'}},
+    {id:'r3-1929', title:'기념판: 그해 가을', text:'기념관 입구의 기념판에는 ‘1929년 11월 3일’이 새겨져 있어요. 이날 광주의 학생들이 일제에 맞서 거리로 나섰어요.',
+     q:{type:'code', q:'광주 학생 독립운동이 일어난 해를 4자리로 입력하세요.', answer:'1929', hint:'‘그해 가을’ 기념판에 새겨진 해예요.'}}
+  ]
+];
+const MEANING = [
+  {q:'학생독립운동기념일이 오늘의 우리에게 주는 의미로 가장 알맞은 것은 무엇일까요?', options:['불의에 맞서 스스로 목소리를 낸 학생들의 용기를 기억하고 이어 간다','오래전 일이니 몰라도 된다','학생은 어른이 시키는 일만 하면 된다','싸움에서 이기는 것이 가장 중요하다'], answer:0, hint:'1929년의 학생들은 스스로 생각하고, 옳지 않은 일에 함께 목소리를 냈어요.'},
+  {q:'1929년 학생들의 행동에서 오늘의 우리가 배울 점으로 가장 알맞은 것은 무엇일까요?', options:['옳지 않은 일을 보면 함께 생각하고 바르게 목소리를 내는 태도','나와 상관없는 일에는 관심을 두지 않는 태도','힘센 쪽의 편을 드는 태도','문제가 생기면 모른 척하는 태도'], answer:0, hint:'학생들은 불공정한 일 앞에서 눈을 감지 않았어요.'},
+  {q:'11월 3일을 학생독립운동기념일로 기념하는 까닭으로 알맞은 것은 무엇일까요?', options:['일제에 맞서 민족의 자존심을 지킨 학생들의 정신을 이어 가기 위해','학생들이 쉬는 날을 만들기 위해','시험 기간을 정하기 위해','운동회를 여는 날이라서'], answer:0, hint:'기념관의 기념판들이 무엇을 기리고 있는지 떠올려 보세요.'}
+];
+const EVENTS = [
+  {key:19291030, label:'나주역 충돌', when:'1929년 10월 30일', desc:'1929년 10월 30일, 나주역에서 조선인 학생과 일본인 학생이 충돌했어요.'},
+  {key:19291103, label:'광주 1차 시위', when:'1929년 11월 3일', desc:'1929년 11월 3일, 광주의 학생들이 거리로 나와 첫 시위를 벌였어요.'},
+  {key:19291112, label:'광주 2차 시위', when:'1929년 11월 12일', desc:'1929년 11월 12일, 광주에서 더 큰 규모의 두 번째 시위가 일어났어요.'},
+  {key:19291215, label:'서울 학생 시위', when:'1929년 12월', desc:'1929년 12월, 서울의 여러 학교 학생들도 거리로 나섰어요.'},
+  {key:19530000, label:'학생의 날 제정', when:'1953년', desc:'1953년, 11월 3일이 ‘학생의 날’로 정해졌어요.'},
+  {key:19840000, label:'학생의 날 부활', when:'1984년', desc:'1984년, 기념일에서 빠졌던 학생의 날이 다시 되살아났어요.'},
+  {key:20060000, label:'기념일 이름 변경', when:'2006년', desc:'2006년, 학생의 날이 ‘학생독립운동기념일’로 이름이 바뀌었어요.'}
+];
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+function pickN(a,n){ return shuffle(a.slice()).slice(0,n); }
+function prepChoice(q){
+  const opts = shuffle(q.options.map((t,i)=>({t, ok:i===q.answer})));
+  return {type:'choice', q:q.q, options:opts.map(o=>o.t), answer:opts.findIndex(o=>o.ok), hint:q.hint};
+}
+/* 판마다 새 문제·단서·위치를 만들어요 */
+function generateGame(){
+  const G = {rooms:[], order:null};
+  const plans = [['code'], ['choice','choice'], null, ['code','final']];
+  for(let ri=0; ri<4; ri++){
+    const spots = shuffle([0,1,2,3]).slice(0,3);
+    let clues = [], steps = [];
+    if(ri !== 2){
+      const pool = FACTS[ri], withQ = shuffle(pool.filter(f=>f.q)), chosen = [];
+      plans[ri].forEach(t=>{
+        if(t==='final'){ steps.push(prepChoice(pickN(MEANING,1)[0])); return; }
+        const f = withQ.find(x=>x.q.type===t && chosen.indexOf(x)<0);
+        chosen.push(f);
+        steps.push(f.q.type==='choice' ? prepChoice(f.q) : {type:'code', q:f.q.q, answer:f.q.answer, hint:f.q.hint});
+      });
+      const rest = shuffle(pool.filter(f=>chosen.indexOf(f)<0));
+      while(chosen.length<3 && rest.length) chosen.push(rest.shift());
+      clues = shuffle(chosen).map((f,i)=>({id:f.id, title:f.title, text:f.text, spot:spots[i]}));
+    } else {
+      const ev = pickN(EVENTS,4), sorted = ev.slice().sort((a,b)=>a.key-b.key), mix = shuffle(ev.slice());
+      const extra = pickN(FACTS[2],1)[0];
+      clues = shuffle([
+        {id:'r2-t1', title:'연표 조각 ①', text:mix[0].desc+' '+mix[1].desc},
+        {id:'r2-t2', title:'연표 조각 ②', text:mix[2].desc+' '+mix[3].desc},
+        {id:extra.id, title:extra.title, text:extra.text}
+      ]);
+      clues.forEach((c,i)=>{ c.spot = spots[i]; });
+      G.order = { labels:sorted.map(e=>e.label), pillarOrder:shuffle([0,1,2,3]),
+        hint:sorted.map(e=>`${e.label}(${e.when})`).join(' → ')+' 순서예요.' };
+    }
+    G.rooms.push({clues, steps});
+  }
+  return G;
+}
+let GAME = generateGame();
+function LK(ri){ return {steps: GAME.rooms[ri].steps}; }
+
 const PENALTY_WRONG = 10000, PENALTY_HINT = 30000;
 
 /* ================= 유틸 ================= */
@@ -322,8 +358,13 @@ const state = {
   orderProg:0, hintsUsed:new Set(), room:0, seenRoom:0, codeInput:'', lastRec:null, finished:false
 };
 
-/* ================= 랭킹 (공유 db + 기기 저장) ================= */
-let db = null, sharedRows = null, dbStatus = 'none';
+/* ================= 랭킹 =================
+   1) 구글 앱스 스크립트 웹 앱 안에서 열면: google.script.run 으로 구글 시트에 저장
+   2) 다른 웹사이트에 올리고 GAS_URL 을 채우면: fetch 로 구글 시트에 저장
+   3) claude.ai 아티팩트에서 열면: 아티팩트 공유 데이터베이스에 저장
+   4) 모두 안 되면: 이 기기에만 저장 */
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwOXX4laAQe71jyVoI3JQtMW-XkeNYxGi8qSIYuPqdvFGybEt0pkMQ2NYHiFFqFU7CF/exec'; // 다른 사이트에 올릴 때만 Apps Script 웹 앱 주소(…/exec)를 넣으세요.
+let backend = 'local', db = null, sharedRows = null;
 const LOCAL_KEY = 'escape1103_records_v1';
 function validRow(r){
   return r && typeof r.name==='string' && typeof r.ms==='number' && isFinite(r.ms) && r.ms>0 && r.ms<86400000;
@@ -335,39 +376,81 @@ function saveLocal(rec){
   const a = localRows(); a.push(rec); a.sort((x,y)=>x.ms-y.ms);
   safeSet(LOCAL_KEY, JSON.stringify(a.slice(0,30)));
 }
-async function initDb(){
+function hasGSR(){ try{ return typeof google!=='undefined' && !!(google.script && google.script.run); }catch(e){ return false; } }
+function gsr(fn, arg){
+  return new Promise((res,rej)=>{
+    const r = google.script.run.withSuccessHandler(res).withFailureHandler(rej);
+    if(arg===undefined) r[fn](); else r[fn](arg);
+  });
+}
+async function gasCall(action, rec){
+  if(backend==='gas-run') return action==='ranks' ? gsr('getRanks') : gsr('saveRecord', rec);
+  if(action==='ranks'){
+    const r = await fetch(GAS_URL + (GAS_URL.indexOf('?')>=0?'&':'?') + 'action=ranks&t=' + Date.now());
+    return r.json();
+  }
+  const r = await fetch(GAS_URL, {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(rec)});
+  return r.json();
+}
+async function refreshRanks(){
+  if(backend.indexOf('gas')!==0) return;
+  try{
+    const res = await gasCall('ranks');
+    if(res && Array.isArray(res.ranks)){ sharedRows = res.ranks.filter(validRow); renderRanks(); }
+  }catch(e){}
+}
+async function initRanking(){
+  if(hasGSR()) backend = 'gas-run';
+  else if(GAS_URL) backend = 'gas-fetch';
+  if(backend.indexOf('gas')===0){
+    await refreshRanks();
+    setInterval(()=>{ if(!state.playing) refreshRanks(); }, 20000);
+    return;
+  }
   try{
     if(!(window.claude && typeof window.claude.use==='function')) return;
     const d = await window.claude.use('db');
     if(!d) return;
-    db = d; dbStatus = 'ok';
+    db = d; backend = 'claude';
     db.collection('records').orderBy('ms','asc').limit(10).onSnapshot(snap=>{
       sharedRows = snap.docs.map(x=>x.data()).filter(validRow);
       renderRanks();
-    }, ()=>{ sharedRows = null; db = null; dbStatus = 'none'; renderRanks(); });
-  }catch(e){ db = null; }
+    }, ()=>{ sharedRows = null; db = null; backend = 'local'; renderRanks(); });
+  }catch(e){ db = null; backend = 'local'; }
 }
 async function saveRecord(rec){
   saveLocal(rec);
-  if(!db) return 'local';
-  try{ await db.collection('records').add(rec); return 'shared'; }
-  catch(e){ return (e && e.code==='invalid_argument') ? 'denied' : 'error'; }
-}
-async function rankOf(ms){
-  if(db){
-    try{ const s = await db.collection('records').where('ms','<',ms).get(); return s.size+1; }catch(e){}
+  const localRank = localRows().filter(r=>r.ms<rec.ms).length+1;
+  if(backend.indexOf('gas')===0){
+    try{
+      const res = await gasCall('save', rec);
+      if(res && res.ok){
+        if(Array.isArray(res.ranks)){ sharedRows = res.ranks.filter(validRow); }
+        return {where:'shared', rank:res.rank};
+      }
+      return {where:'error', rank:localRank};
+    }catch(e){ return {where:'error', rank:localRank}; }
   }
-  return localRows().filter(r=>r.ms<ms).length+1;
+  if(backend==='claude' && db){
+    try{
+      await db.collection('records').add(rec);
+      let rank = localRank;
+      try{ const s = await db.collection('records').where('ms','<',rec.ms).get(); rank = s.size+1; }catch(_){}
+      return {where:'shared', rank};
+    }catch(e){ return {where:(e && e.code==='invalid_argument')?'denied':'error', rank:localRank}; }
+  }
+  return {where:'local', rank:localRank};
 }
 function renderRanks(){
   const rows = (sharedRows ? sharedRows : localRows()).slice(0,10);
+  const title = sharedRows ? (backend.indexOf('gas')===0 ? '구글 시트 공유 순위' : '공유 순위') : '이 기기의 순위';
   document.querySelectorAll('[data-ranks]').forEach(box=>{
     box.textContent = '';
-    box.appendChild(el('h3',{text: sharedRows ? '공유 순위 (가장 빨리 탈출한 학생)' : '이 기기의 순위 (가장 빨리 탈출한 학생)'}));
+    box.appendChild(el('h3',{text: title + ' (가장 빨리 탈출한 학생)'}));
     const ul = el('ol',{class:'ranks'});
     if(!rows.length) ul.appendChild(el('li',null,[el('span',{class:'empty',text:'아직 기록이 없어요. 첫 번째 탈출자가 되어 보세요!'})]));
     rows.forEach((r,i)=>{
-      const me = state.lastRec && r.name===state.lastRec.name && r.ms===state.lastRec.ms && r.at===state.lastRec.at;
+      const me = state.lastRec && r.name===state.lastRec.name && r.ms===state.lastRec.ms;
       ul.appendChild(el('li',{class:me?'me':''},[
         el('span',{class:'no',text:String(i+1)}),
         el('span',{class:'nm',text:cleanName(r.name)||'이름 없음'}),
@@ -503,9 +586,9 @@ function buildTextures(){
   });
 }
 
-function signMesh(title, sub, w, h, bg, fg){
+function signTex(title, sub, w, h, bg, fg){
   const px = 128;
-  const tex = makeTex(Math.round(w*px), Math.round(h*px), (g,W,H)=>{
+  return makeTex(Math.round(w*px), Math.round(h*px), (g,W,H)=>{
     g.fillStyle = bg; g.fillRect(0,0,W,H);
     g.strokeStyle = 'rgba(0,0,0,.25)'; g.lineWidth = 10; g.strokeRect(5,5,W-10,H-10);
     g.fillStyle = fg; g.textAlign='center'; g.textBaseline='middle';
@@ -515,20 +598,90 @@ function signMesh(title, sub, w, h, bg, fg){
     g.fillText(title, W/2, sub ? H*0.42 : H/2);
     if(sub){ g.globalAlpha=.8; g.font = `${size*0.42}px ${FONT}`; g.fillText(sub, W/2, H*0.76); g.globalAlpha=1; }
   });
-  const m = new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshStandardMaterial({map:tex, roughness:.8}));
-  return m;
 }
-function textSprite(text, bg, fg, scale){
-  const tex = makeTex(512,128,(g,W,H)=>{
+function signMesh(title, sub, w, h, bg, fg){
+  return new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshStandardMaterial({map:signTex(title,sub,w,h,bg,fg), roughness:.8}));
+}
+function setBoardTitle(mesh, title){
+  const old = mesh.material.map;
+  mesh.material.map = signTex(title,'',1.8,1.2,'#fff7df','#3b2a16');
+  mesh.material.needsUpdate = true;
+  if(old) old.dispose();
+}
+function textTex(text, bg, fg){
+  return makeTex(512,128,(g,W,H)=>{
     g.font = `56px ${FONT}`;
+    let size = 56;
+    while(size>20 && g.measureText(text).width > W-70){ size -= 3; g.font = `${size}px ${FONT}`; }
     const tw = Math.min(W-20, g.measureText(text).width + 50);
     g.fillStyle = bg; const x=(W-tw)/2;
     if(g.roundRect){ g.beginPath(); g.roundRect(x,14,tw,H-28,24); g.fill(); } else g.fillRect(x,14,tw,H-28);
     g.fillStyle = fg; g.textAlign='center'; g.textBaseline='middle'; g.fillText(text, W/2, H/2+3);
   });
-  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthWrite:false}));
+}
+function textSprite(text, bg, fg, scale){
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:textTex(text,bg,fg), transparent:true, depthWrite:false}));
   const s = scale||1; sp.scale.set(3.2*s, 0.8*s, 1);
   return sp;
+}
+const spotItems = [];
+function buildSpot(ri, si, c){
+  const grp = new THREE.Group(); scene.add(grp);
+  const c0 = colliders.length;
+  let markerY = 2.4, board = null;
+  const wall = Math.abs(c.x) > 6;
+  if(c.kind==='ticket'){
+    const p = box(0.9,1.0,0.9,mat(0x7d5a3c)); p.position.set(c.x,0.5,c.z); grp.add(p);
+    addCollider(c.x-0.45,c.x+0.45,c.z-0.45,c.z+0.45,1.0);
+    const t = box(0.7,0.06,0.4,mat(0xf6e7b6)); t.position.set(c.x,1.04,c.z); t.rotation.y=.3; grp.add(t);
+  } else if(c.kind==='paper'){
+    const tb = box(1.4,0.9,0.9,mat(0x8f6b45)); tb.position.set(c.x,0.45,c.z); grp.add(tb);
+    addCollider(c.x-0.7,c.x+0.7,c.z-0.45,c.z+0.45,0.9);
+    const p = box(0.6,0.03,0.45,mat(0xf2efe6)); p.position.set(c.x,0.92,c.z); p.rotation.y=-.2; grp.add(p);
+  } else if(c.kind==='flag'){
+    const pole = box(0.14,3.6,0.14,mat(0x6d4c2f)); pole.position.set(c.x,1.8,c.z); grp.add(pole);
+    addCollider(c.x-0.2,c.x+0.2,c.z-0.2,c.z+0.2,3.6);
+    const f = signMesh('조선인 본위 교육!','식민지 노예 교육 철폐',2.2,1.3,'#fbfbf6','#a8231b');
+    f.position.set(c.x, 2.9, c.z+1.15); f.rotation.y = c.x<0 ? Math.PI/2 : -Math.PI/2; grp.add(f);
+    const f2 = f.clone(); f2.rotation.y += Math.PI; f2.position.x += (c.x<0?-0.01:0.01); grp.add(f2);
+    markerY = 4.1;
+  } else {
+    board = signMesh('단서','',1.8,1.2,'#fff7df','#3b2a16');
+    if(wall){
+      board.position.set(c.x<0 ? -7.75 : 7.75, 2.1, c.z);
+      board.rotation.y = c.x<0 ? Math.PI/2 : -Math.PI/2;
+      grp.add(board); markerY = 3.2;
+    } else {
+      const stand = box(0.12,1.4,0.12,mat(0x5e4630)); stand.position.set(c.x,0.7,c.z); grp.add(stand);
+      board.position.set(c.x,1.9,c.z+0.08); grp.add(board);
+      const back = box(1.9,1.3,0.06,mat(0x5e4630)); back.position.set(c.x,1.9,c.z); grp.add(back);
+      addCollider(c.x-0.3,c.x+0.3,c.z-0.3,c.z+0.3,2.5);
+      markerY = 3.0;
+    }
+  }
+  const mx = wall ? (c.x<0?-7.2:7.2) : c.x;
+  const marker = makeMarker(mx, markerY, c.z);
+  const it = {kind:'clue', room:ri, spot:si, x: wall ? (c.x<0?-6.6:6.6) : c.x, z:c.z, marker, r:2.3,
+    active:false, fact:null, grp, board, cols:colliders.slice(c0)};
+  spotItems.push(it); interactables.push(it);
+}
+function applyGame(G){
+  spotItems.forEach(it=>{
+    const f = G.rooms[it.room].clues.find(c=>c.spot===it.spot);
+    it.fact = f || null; it.active = !!f;
+    it.grp.visible = !!f; it.marker.visible = !!f;
+    it.cols.forEach(c=>{ c.active = !!f; });
+    if(f){
+      it.marker.material.map = bangTex; it.marker.material.needsUpdate = true;
+      if(it.board) setBoardTitle(it.board, f.title);
+    }
+  });
+  pillars.forEach((p,pi)=>{
+    p.order = G.order.pillarOrder[pi];
+    const old = p.label.material.map;
+    p.label.material.map = textTex(G.order.labels[p.order], 'rgba(31,59,99,.92)', '#ffffff');
+    p.label.material.needsUpdate = true; if(old) old.dispose();
+  });
 }
 
 /* 캐릭터 */
@@ -603,44 +756,6 @@ function makeMarker(x,y,z){
   bobbers.push({obj:sp, base:y, off:Math.random()*6});
   return sp;
 }
-function buildClue(ri, c){
-  let markerY = 2.4, wallFace = null;
-  if(Math.abs(c.x) > 6) wallFace = c.x < 0 ? 1 : -1;
-  if(c.kind==='ticket'){
-    pedestal(c.x,c.z,1.0,0x7d5a3c);
-    const t = box(0.7,0.06,0.4,mat(0xf6e7b6)); t.position.set(c.x,1.04,c.z); t.rotation.y=.3; scene.add(t);
-  } else if(c.kind==='paper'){
-    const tb = box(1.4,0.9,0.9,mat(0x8f6b45)); tb.position.set(c.x,0.45,c.z); scene.add(tb);
-    addCollider(c.x-0.7,c.x+0.7,c.z-0.45,c.z+0.45,0.9);
-    const p = box(0.6,0.03,0.45,mat(0xf2efe6)); p.position.set(c.x,0.92,c.z); p.rotation.y=-.2; scene.add(p);
-  } else if(c.kind==='flag'){
-    const pole = box(0.14,3.6,0.14,mat(0x6d4c2f)); pole.position.set(c.x,1.8,c.z); scene.add(pole);
-    addCollider(c.x-0.2,c.x+0.2,c.z-0.2,c.z+0.2,3.6);
-    const f = signMesh('조선인 본위 교육!','식민지 노예 교육 철폐',2.2,1.3,'#fbfbf6','#a8231b');
-    f.position.set(c.x, 2.9, c.z+1.15); f.rotation.y = c.x<0 ? Math.PI/2 : -Math.PI/2; scene.add(f);
-    const f2 = f.clone(); f2.rotation.y += Math.PI; f2.position.x += (c.x<0?-0.01:0.01); scene.add(f2);
-    markerY = 4.1;
-  } else { // board
-    const bw = 1.8, bh = 1.2;
-    const stand = box(0.12,1.4,0.12,mat(0x5e4630));
-    const brd = signMesh(c.title,'',bw,bh,'#fff7df','#3b2a16');
-    if(wallFace){
-      brd.position.set(c.x<0 ? -7.75 : 7.75, 2.1, c.z);
-      brd.rotation.y = c.x<0 ? Math.PI/2 : -Math.PI/2;
-      scene.add(brd); markerY = 3.2;
-    } else {
-      stand.position.set(c.x,0.7,c.z); scene.add(stand);
-      brd.position.set(c.x,1.9,c.z+0.08); scene.add(brd);
-      const back = box(bw+0.1,bh+0.1,0.06,mat(0x5e4630)); back.position.set(c.x,1.9,c.z); scene.add(back);
-      addCollider(c.x-0.3,c.x+0.3,c.z-0.3,c.z+0.3,2.5);
-      markerY = 3.0;
-    }
-  }
-  const mx = wallFace ? (c.x<0?-7.2:7.2) : c.x;
-  const marker = makeMarker(mx, markerY, c.z);
-  const ix = wallFace ? (c.x<0?-6.6:6.6) : c.x;
-  interactables.push({kind:'clue', room:ri, data:c, x:ix, z:c.z, marker, r:2.3});
-}
 function buildRoom(i){
   const R = ROOMS[i], zTop = -ROOM_D*i, zBot = -ROOM_D*(i+1), cz = (zTop+zBot)/2;
   const ft = studTex.clone(); ft.needsUpdate = true; ft.repeat.set(8,8);
@@ -664,8 +779,7 @@ function buildDoor(k){ // k: 0..3, door at z = -16(k+1)
   wallMeshes.push(dm);
   const col = addCollider(-1.6,1.6,z-0.2,z+0.2,5);
   doors.push({mesh:dm, col, open:false, y:1.7});
-  const L = ROOMS[k].lock;
-  if(L.kind==='steps'){
+  if(LOCK_KIND[k]==='steps'){
     const kp = new THREE.Mesh(new THREE.PlaneGeometry(1.0,1.4), new THREE.MeshStandardMaterial({map:keypadTex,roughness:.5}));
     kp.position.set(2.8,1.9,z+0.22); scene.add(kp);
     const marker = makeMarker(2.8,3.1,z+0.4);
@@ -674,20 +788,20 @@ function buildDoor(k){ // k: 0..3, door at z = -16(k+1)
     const sg = signMesh('순서의 기둥','안내판을 읽어 보세요',1.8,1.1,'#1f3b63','#ffffff');
     sg.position.set(3.4,2.2,z+0.22); scene.add(sg);
     const marker = makeMarker(3.4,3.3,z+0.4);
-    interactables.push({kind:'info', room:k, x:3.4, z:z+1.1, marker, r:2.0});
+    interactables.push({kind:'info', room:k, x:3.4, z:z+0.9, marker, r:1.6});
   }
 }
 const pillars = [];
+const PILLAR_POS = [{x:-4,z:-36},{x:4,z:-36},{x:-4,z:-43.5},{x:4,z:-43.5}];
 function buildPillars(){
-  const L = ROOMS[2].lock;
-  L.spots.forEach(sp=>{
+  PILLAR_POS.forEach(sp=>{
     const m = new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.65,2.2,12), mat(0xd9ccb0));
     m.position.set(sp.x,1.1,sp.z); m.castShadow = true; m.receiveShadow = true; scene.add(m);
     const cap = box(1.5,0.25,1.5,mat(0xbfae8c)); cap.position.set(sp.x,2.32,sp.z); scene.add(cap);
     addCollider(sp.x-0.7,sp.x+0.7,sp.z-0.7,sp.z+0.7,2.45);
-    const label = textSprite(L.items[sp.i], 'rgba(31,59,99,.92)', '#ffffff', 0.85);
+    const label = textSprite('기둥', 'rgba(31,59,99,.92)', '#ffffff', 0.85);
     label.position.set(sp.x,3.25,sp.z); scene.add(label);
-    const p = {kind:'pillar', room:2, order:sp.i, x:sp.x, z:sp.z, r:2.1, mesh:m, pressed:false, marker:null};
+    const p = {kind:'pillar', room:2, order:0, x:sp.x, z:sp.z, r:2.1, mesh:m, label, pressed:false, marker:null};
     pillars.push(p); interactables.push(p);
   });
 }
@@ -844,12 +958,13 @@ function shakeCard(){ card.classList.remove('shake'); void card.offsetWidth; car
 function addPenalty(ms){ state.penalty += ms; }
 
 function openStart(){
+  refreshRanks();
   showModal('start', c=>{
     c.appendChild(el('div',{class:'logo-wrap'},[
       el('div',{class:'logo',text:'그날의 함성'}),
       el('p',{text:'11월 3일 학생독립운동기념일 방탈출'})
     ]));
-    c.appendChild(el('p',{text:'1929년 가을, 광주의 학생들은 불의에 맞서 거리로 나섰어요. 그날의 현장을 지나며 단서를 모으고 자물쇠를 풀어 네 개의 방을 탈출하세요. 가장 빨리 탈출한 학생이 순위에 올라요.'}));
+    c.appendChild(el('p',{text:'1929년 가을, 광주의 학생들은 불의에 맞서 거리로 나섰어요. 그날의 현장을 지나며 단서를 모으고 자물쇠를 풀어 네 개의 방을 탈출하세요. 문제와 단서 위치는 도전할 때마다 바뀌어요. 가장 빨리 탈출한 학생이 순위에 올라요.'}));
     const inp = el('input',{type:'text', maxlength:'12', placeholder:'이름 또는 별명 (12자까지)', 'aria-label':'이름', 'data-focus':'1'});
     inp.value = safeGet('escape1103_name') || '';
     const go = el('button',{class:'btn gold', type:'button', text:'탈출 시작'});
@@ -891,13 +1006,14 @@ function resetWorld(){
   state.orderProg = 0; state.hintsUsed.clear(); state.room = 0; state.seenRoom = 0; state.lastRec = null;
   P.x = 0; P.y = 0; P.z = -6; P.vy = 0; P.rot = Math.PI; cam.yaw = 0; cam.pitch = 0.42;
   doors.forEach(d=>{ d.open = false; d.col.active = true; d.mesh.position.y = d.y; d.mesh.visible = true; });
-  interactables.forEach(it=>{ if(it.marker){ it.marker.visible = true; it.marker.material.map = bangTex; it.marker.material.needsUpdate = true; } });
+  GAME = generateGame(); applyGame(GAME);
+  interactables.forEach(it=>{ if(it.marker && it.kind!=='clue'){ it.marker.visible = true; it.marker.material.map = bangTex; it.marker.material.needsUpdate = true; } });
   pillars.forEach(p=>{ p.pressed = false; p.mesh.material.color.setHex(0xd9ccb0); });
   updateClueCount();
 }
 
 function openClue(it){
-  const c = it.data, first = !state.found.has(c.id);
+  const c = it.fact; if(!c) return; const first = !state.found.has(c.id);
   if(first){
     state.found.add(c.id); sfx.pick();
     it.marker.material.map = checkTex; it.marker.material.needsUpdate = true;
@@ -917,8 +1033,8 @@ function openNotes(){
   showModal('notes', cd=>{
     cd.appendChild(el('h2',{text:'단서 노트'}));
     let any = false;
-    ROOMS.forEach((R,ri)=>{
-      const got = R.clues.filter(c=>state.found.has(c.id));
+    ROOMS.slice(0,4).forEach((R,ri)=>{
+      const got = GAME.rooms[ri].clues.filter(c=>state.found.has(c.id));
       if(!got.length) return; any = true;
       cd.appendChild(el('h3',{text:`${R.title} (${R.when})`}));
       const ul = el('ul',{class:'cluelist'});
@@ -931,6 +1047,7 @@ function openNotes(){
 }
 function openRank(){
   if(modalOpen()) return;
+  refreshRanks();
   showModal('rank', cd=>{
     cd.appendChild(el('h2',{text:'탈출 순위'}));
     cd.appendChild(el('div',{'data-ranks':'1'}));
@@ -956,7 +1073,7 @@ function openLock(ri){
 }
 function renderLock(cd){
   cd = cd || card; cd.textContent = '';
-  const ri = lockRoom, L = ROOMS[ri].lock, si = state.lockStep[ri], step = L.steps[si];
+  const ri = lockRoom, L = LK(ri), si = state.lockStep[ri], step = L.steps[si];
   cd.appendChild(el('span',{class:'chip',text:`${ROOMS[ri].title} 자물쇠 ${si+1}/${L.steps.length}`}));
   cd.appendChild(el('h2',{text: step.type==='code' ? '번호 자물쇠' : '퀴즈 자물쇠'}));
   cd.appendChild(el('p',{text:step.q}));
@@ -997,7 +1114,7 @@ function codePress(k){
   if(state.codeInput.length<4){ state.codeInput += k; refreshSlots(); }
 }
 function lockKeyHandler(e){
-  const L = ROOMS[lockRoom] && ROOMS[lockRoom].lock; if(!L) return false;
+  const L = (lockRoom>=0 && lockRoom<4 && LK(lockRoom).steps.length) ? LK(lockRoom) : null; if(!L) return false;
   const step = L.steps[state.lockStep[lockRoom]]; if(!step) return false;
   if(step.type==='code'){
     if(/^[0-9]$/.test(e.key)){ codePress(e.key); e.preventDefault(); return true; }
@@ -1008,18 +1125,18 @@ function lockKeyHandler(e){
 }
 function setMsg(text, kind){ const m = card.querySelector('#lockMsg'); if(m){ m.textContent = text; m.className = 'msg '+(kind||''); } }
 function checkCode(){
-  const step = ROOMS[lockRoom].lock.steps[state.lockStep[lockRoom]];
+  const step = LK(lockRoom).steps[state.lockStep[lockRoom]];
   if(state.codeInput.length<4){ setMsg('4자리를 모두 입력하세요.','bad'); shakeCard(); return; }
   if(state.codeInput===step.answer) stepSolved();
   else { addPenalty(PENALTY_WRONG); sfx.bad(); state.codeInput=''; refreshSlots(); setMsg('틀렸어요! (+10초) 단서를 다시 살펴보세요.','bad'); shakeCard(); }
 }
 function choicePick(idx){
-  const step = ROOMS[lockRoom].lock.steps[state.lockStep[lockRoom]];
+  const step = LK(lockRoom).steps[state.lockStep[lockRoom]];
   if(idx===step.answer) stepSolved();
   else { addPenalty(PENALTY_WRONG); sfx.bad(); setMsg('틀렸어요! (+10초) 다시 생각해 보세요.','bad'); shakeCard(); }
 }
 function stepSolved(){
-  const ri = lockRoom, L = ROOMS[ri].lock;
+  const ri = lockRoom, L = LK(ri);
   state.lockStep[ri]++; state.codeInput = '';
   if(state.lockStep[ri] >= L.steps.length){ closeModal(); openDoor(ri); }
   else { sfx.good(); toast('정답! 다음 문제가 나타났어요.','good'); renderLock(); }
@@ -1032,14 +1149,13 @@ function openDoor(ri){
 }
 function openInfo(){
   showModal('info', cd=>{
-    const L = ROOMS[2].lock;
     cd.appendChild(el('span',{class:'chip',text:ROOMS[2].title}));
     cd.appendChild(el('h2',{text:'순서의 기둥'}));
     cd.appendChild(el('p',{text: state.doorOpen[2] ? '기둥이 모두 빛나고 문이 열렸어요.' : '방 안의 네 기둥을 사건이 일어난 순서대로 눌러야 문이 열려요. 틀리면 처음부터 다시 눌러야 하고 10초가 더해져요.'}));
     cd.appendChild(el('p',{text:`지금까지 맞게 누른 기둥: ${state.doorOpen[2]?4:state.orderProg}/4`}));
     const hh = el('div');
     cd.appendChild(hh);
-    const hb = state.doorOpen[2] ? null : hintButton('2-order', L.hint, hh);
+    const hb = state.doorOpen[2] ? null : hintButton('2-order', GAME.order.hint, hh);
     cd.appendChild(el('div',{class:'row'},[hb, el('button',{class:'btn', type:'button', text:'닫기', 'data-focus':'1', onclick:()=>closeModal()})]));
   });
 }
@@ -1060,7 +1176,7 @@ function pressPillar(p){
 /* 상호작용 */
 let nearest = null;
 function interactLabel(it){
-  if(it.kind==='clue') return state.found.has(it.data.id) ? '다시 보기' : '살펴보기';
+  if(it.kind==='clue') return (it.fact && state.found.has(it.fact.id)) ? '다시 보기' : '살펴보기';
   if(it.kind==='lock') return state.doorOpen[it.room] ? '열린 자물쇠' : '자물쇠 풀기';
   if(it.kind==='info') return '안내판 읽기';
   if(it.kind==='pillar') return '기둥 누르기';
@@ -1103,11 +1219,11 @@ async function finish(){
       el('button',{class:'btn ghost', type:'button', text:'이름 바꾸기', onclick:()=>{ $('#hud').hidden=true; $('#touch').hidden=true; openStart(); }})
     ]));
   });
-  const res = await saveRecord(rec);
-  const rank = await rankOf(total);
+  const saved = await saveRecord(rec);
+  const res = saved.where, rank = saved.rank;
   const m = document.getElementById('saveMsg');
   if(m){
-    if(res==='shared') m.textContent = `공유 순위에 저장했어요. 현재 ${rank}위!`;
+    if(res==='shared') m.textContent = `${backend.indexOf('gas')===0?'구글 시트 순위':'공유 순위'}에 저장했어요. 현재 ${rank}위!`;
     else if(res==='denied') m.textContent = `공유 순위에 저장할 권한이 없어 이 기기에만 저장했어요. (이 기기 ${rank}위)`;
     else if(res==='error') m.textContent = `공유 순위 저장에 실패해 이 기기에만 저장했어요. (이 기기 ${rank}위)`;
     else m.textContent = `이 기기에 저장했어요. 현재 ${rank}위!`;
@@ -1199,6 +1315,7 @@ function update(dt){
   if(state.playing && !modalOpen()){
     let best = Infinity;
     for(const it of interactables){
+      if(it.active===false) continue;
       const d = Math.hypot(it.x-P.x, it.z-P.z);
       if(d<it.r && d<best){ best = d; nearest = it; }
     }
@@ -1247,14 +1364,15 @@ async function boot(){
   for(let i=0;i<5;i++) buildRoom(i);
   for(let k=0;k<4;k++) buildDoor(k);
   buildDecor();
-  ROOMS.forEach((R,ri)=>R.clues.forEach(c=>buildClue(ri,c)));
+  SPOTS.forEach((list,ri)=>list.forEach((c,si)=>buildSpot(ri,si,c)));
   buildPillars();
+  applyGame(GAME);
   avatar = makeAvatar({top:0x262b38, bottom:0x30343f, front:jacketTex, cap:true});
   scene.add(avatar); setNameTag('학생');
   $('#loading').remove();
   requestAnimationFrame(t=>{ last = t; loop(t); });
   openStart();
-  initDb();
+  initRanking();
 }
 boot();
 })();
